@@ -1,0 +1,16 @@
+{
+	"login": {
+		"title": "Вхід",
+		"subtitle": "Увійдіть до вашого акаунту",
+		"emailPlaceholder": "Електронна пошта",
+		"passwordPlaceholder": "Пароль",
+		"button": "Увійти",
+		"error": "Невірний email або пароль",
+		"passwordMessage": "Введіть пароль!",
+		"emailMessage": "Введіть електронну пошту!",
+		"greet": "Ласкаво просимо, ",
+		"authError": {
+			"Firebase: Error (auth/invalid-credential).": "Помилка входу. Будь ласка, перевірте свої облікові дані або спробуйте увійти знову."
+		}
+	}
+}

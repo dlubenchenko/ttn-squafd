@@ -1,0 +1,13 @@
+@use '../../../styles/colors';
+
+.spinner {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: colors.$gradient;
+	z-index: 1000;
+	:global(.ant-spin-dot-item) {
+		background: colors.$secondary;
+	}
+}
