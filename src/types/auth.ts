@@ -1,3 +1,5 @@
+import type { User } from "./user";
+
 export type AuthContextType = {
     user: FirebaseUser | null;
     setUser: (user: FirebaseUser | null) => void;
@@ -6,8 +8,7 @@ export type AuthContextType = {
     authLoading: boolean;
 }
 
-export interface FirebaseUser {
+export interface FirebaseUser extends Pick<User, 'displayName' | 'role' | 'division'> {
     uid: string;
     email: string | null;
-    displayName: string | null;
 }

@@ -20,6 +20,8 @@ export const AuthProvider = ({ children }: ContextProviderProps) => {
                     uid: firebaseUser.uid,
                     email: firebaseUser.email,
                     displayName: firebaseUser.displayName,
+                    role: 'guest',
+                    division: undefined
                 });
             } else {
                 setUser(null)
@@ -38,6 +40,8 @@ export const AuthProvider = ({ children }: ContextProviderProps) => {
                 uid: userCredential.user.uid,
                 email: userCredential.user.email,
                 displayName: userCredential.user.displayName,
+                role: 'guest',
+                division: undefined
             });
         } catch (error: unknown) {
             throw error;
