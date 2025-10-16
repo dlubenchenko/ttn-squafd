@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"
+import { createContext, useContext, useState } from "react"
 import type { ContextProviderProps, MenuContextType, MenuContextValueType } from "../types";
 import { fetchSheetData } from "../api/googleSheets";
 import { parseMenu } from "../utils";
@@ -32,4 +32,8 @@ export const MenuProvider = ({ children }: ContextProviderProps) => {
             {children}
         </MenuContext.Provider>
     )
+}
+
+export function useMenuContext() {
+    return useContext(MenuContext);
 }

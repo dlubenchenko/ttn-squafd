@@ -1,9 +1,10 @@
-import { createContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 import type { FirebaseUser, ContextProviderProps, AuthContextType } from "../types";
 
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
+import { fetchUserByEmail } from "../api/userApi";
 
 
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -15,18 +16,22 @@ export const AuthProvider = ({ children }: ContextProviderProps) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-            if (firebaseUser) {
-                setUser({
-                    uid: firebaseUser.uid,
-                    email: firebaseUser.email,
-                    displayName: firebaseUser.displayName,
-                    role: 'guest',
-                    division: undefined
-                });
-            } else {
-                setUser(null)
-            }
-            setAuthLoading(false)
+            const handleUser = async () => {
+                if (firebaseUser) {
+                    const sheetUserInfo = await fetchUserByEmail(firebaseUser.email);
+                    setUser({
+                        uid: firebaseUser.uid,
+                        email: firebaseUser.email,
+                        displayName: sheetUserInfo?.displayName || null,
+                        role: sheetUserInfo?.role || 'guest',
+                        division: sheetUserInfo?.division,
+                    });
+                } else {
+                    setUser(null);
+                }
+                setAuthLoading(false);
+            };
+            handleUser();
         });
         return () => unsubscribe();
     }, []);
@@ -58,4 +63,8 @@ export const AuthProvider = ({ children }: ContextProviderProps) => {
             {children}
         </AuthContext.Provider>
     )
+}
+
+export function useAuthContext() {
+    return useContext(AuthContext);
 }
