@@ -5,7 +5,7 @@ export interface MenuContextValueType {
   title: string;
   path: string;
   roles?: UserRoles[];
-  visible?: boolean;
+  visible?: boolean | string;
   children?: string;
   icon?: string;
   division?: UserDivision[];
@@ -27,5 +27,5 @@ export interface RawMenuValue {
   visible?: boolean | string;
   children?: string;
   icon?: string;
-  division?: string;
+  division?: UserDivision[];
 }

@@ -40,13 +40,13 @@ export const AuthProvider = ({ children }: ContextProviderProps) => {
     const login = async (email: string, password: string) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            // userCredential.user — це користувач з Firebase
+            const sheetUserInfo = await fetchUserByEmail(email);
             setUser({
                 uid: userCredential.user.uid,
                 email: userCredential.user.email,
-                displayName: userCredential.user.displayName,
-                role: 'guest',
-                division: undefined
+                displayName: sheetUserInfo?.displayName || null,
+                role: sheetUserInfo?.role || 'guest',
+                division: sheetUserInfo?.division,
             });
         } catch (error: unknown) {
             throw error;
