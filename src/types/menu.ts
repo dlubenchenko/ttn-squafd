@@ -27,5 +27,5 @@ export interface RawMenuValue {
   visible?: boolean | string;
   children?: string;
   icon?: string;
-  division?: UserDivision[];
+  division?: UserDivision;
 }

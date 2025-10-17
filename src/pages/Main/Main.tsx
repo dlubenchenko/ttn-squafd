@@ -1,22 +1,34 @@
 import { Button } from "antd";
-import { useContext, useEffect } from "react";
-import { MenuContext } from "../../context/MenuContext";
+import { useEffect } from "react";
+import { useMenuContext } from "../../context/MenuContext";
 import Spinner from "../../components/common/Spinner/Spinner";
 import { useAuthContext } from "../../context";
+import { useAppMessage } from "../../hooks";
 
 export default function Main() {
-  const { menuLoading, loadMenu } = useContext(MenuContext)
   const { user } = useAuthContext();
+  const { menu, menuLoading, loadMenu } = useMenuContext();
+  const { logout } = useAuthContext();
+  const { showMessageHandler } = useAppMessage();
+
+  const logoutHandler = () => {
+    logout();
+    showMessageHandler.success('Ви вийшли з системи');
+  }
 
 
   useEffect(() => {
-    loadMenu()
-    if (user && user.email) {
-      console.log(user);
-      // Якщо треба — можна ще підвантажити додаткові дані
+    if (user) {
+      loadMenu();
     }
+  }, [user]);
 
-  }, [user])
+  useEffect(() => {
+    if (menu && menu.length > 0) {
+      console.log(user);
+      console.log(menu);
+    }
+  }, [menu]);
 
   if (menuLoading) {
     return <Spinner />
@@ -26,7 +38,7 @@ export default function Main() {
   return (
     <>
       <div>Main Page</div>
-      <Button type="primary">AntD button</Button>
+      <Button type="primary" onClick={logoutHandler}>Вихід</Button>
     </>
   )
 }

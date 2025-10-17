@@ -10,8 +10,8 @@ export function parseMenu(data: RawMenuValue[]): MenuContextValueType[] {
             : [],
         visible: item.visible === true || item.visible === 'true',
         icon: item.icon,
-        division: item.division
-            ? (item.division.split(',').map(division => division.trim()) as UserDivision[])
+        division: item.division?.length
+            ? (item.division.split(',').map((division: string) => division.trim()) as UserDivision[])
             : [],
         children: item.children,
     }));

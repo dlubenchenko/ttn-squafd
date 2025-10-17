@@ -3,18 +3,16 @@ import { Input, Button } from '../../components/common'
 
 import styles from './Login.module.scss'
 
-import { Badge, Form, message } from 'antd'
+import { Badge, Form } from 'antd'
 
 import { userLanguageHandler } from '../../context/LanguageContext';
 import { AuthContext } from '../../context/AuthContext';
 
-import { useAppMessage } from '../../hooks/useAppMessage'
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../components/common/Spinner/Spinner';
 
 export default function Login() {
   const { language } = userLanguageHandler(); // вибір мови користувача (UA/KZ/EN)
-  const { contextHolder, showMessageHandler } = useAppMessage();
 
   const { user, login, authLoading } = useContext(AuthContext);
 
@@ -22,7 +20,7 @@ export default function Login() {
 
   useEffect(() => {
     if (user?.email) {
-      showMessageHandler.success(`${language.login.greet} ${user.displayName || user.email}!`);
+      console.log(`${language.login.greet} ${user.displayName || user.email}!`);
 
       navigate("/", { replace: true });
     }
@@ -33,9 +31,9 @@ export default function Login() {
       await login(values.email, values.password);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        showMessageHandler.error(language.login.authError[error.message] || error.message);
+        console.error(language.login.authError[error.message] || error.message);
       } else {
-        showMessageHandler.error('Login failed');
+        console.error('Login failed');
       }
     } finally {
     }
@@ -43,7 +41,7 @@ export default function Login() {
 
   if (authLoading) {
     return (
-      <>  {contextHolder}
+      <>
         <Spinner />
       </>
     );
@@ -51,7 +49,6 @@ export default function Login() {
 
   return (
     <div className={styles.loginContainer}>
-      {contextHolder}
       <Badge.Ribbon text="TTN SQUAD" placement='start' color='#764ba2'>
         <Form className={styles.loginForm} onFinish={handleLogin}>
           <h2 className={styles.loginTitle}>{language.login.title}</h2>
@@ -71,7 +68,7 @@ export default function Login() {
           </Form.Item>
 
           <Form.Item>
-            <Button className={styles.loginButton} onClick={() => message.info('Test error')} type='primary' htmlType='submit' block>
+            <Button className={styles.loginButton} type='primary' htmlType='submit' block>
               {language.login.button}
             </Button>
           </Form.Item>

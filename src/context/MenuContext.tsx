@@ -23,10 +23,10 @@ export const MenuProvider = ({ children }: ContextProviderProps) => {
                 let filteredMenu = parsedMenu;
                 if (user && user.role && user.division) {
                     filteredMenu = filterMenuByRole(parsedMenu, user.role, user.division);
+                    setMenu(filteredMenu);
                 }
-                setMenu(filteredMenu);
-                console.log(parsedMenu);
-                console.log(filteredMenu);
+                // console.log(parsedMenu);
+                // console.log(filteredMenu);
             }
 
         } catch (error) {
