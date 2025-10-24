@@ -1,4 +1,4 @@
-import { type UserRoles } from './user';
+import { type User, type UserRoles } from './user';
 import { type UserDivision } from './user';
 export interface MenuContextValueType {
   key: string;
@@ -28,4 +28,11 @@ export interface RawMenuValue {
   children?: string;
   icon?: string;
   division?: UserDivision;
+}
+
+export interface LoadMenuProps {
+  role: UserRoles
+  division: UserDivision
+  setMenuLoading: (loading: boolean) => void;
+  setMenu: (menu: MenuContextValueType[] | null) => void;
 }

@@ -5,16 +5,15 @@ import AppRouter from './router/index.tsx'
 import 'antd/dist/reset.css';
 import LanguageProvider from './context/LanguageContext.tsx';
 import { AuthProvider } from './context/AuthContext.tsx';
-import { MenuProvider } from './context/MenuContext.tsx';
+
+import '@ant-design/v5-patch-for-react-19';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
-      <MenuProvider>
-        <LanguageProvider>
-          <AppRouter />
-        </LanguageProvider>
-      </MenuProvider>
+      <LanguageProvider>
+        <AppRouter />
+      </LanguageProvider>
     </AuthProvider>
   </StrictMode>,
 )
