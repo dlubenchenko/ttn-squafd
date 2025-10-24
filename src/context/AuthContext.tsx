@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: ContextProviderProps) => {
     const [authLoading, setAuthLoading] = useState(true);
 
     const [menu, setMenu] = useState<MenuContextValueType[] | null>(null);
-    const [menuLoading, setMenuLoading] = useState(false);
+    const [_menuLoading, setMenuLoading] = useState(false);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {

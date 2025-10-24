@@ -1,0 +1,18 @@
+@use '../../styles/colors';
+
+.appSider {
+	color: #fff;
+	&Header {
+		font-size: 1rem;
+		text-align: center;
+		padding: .5rem 0;
+		&Collapsed {
+			font-size: 0.7rem;
+			text-align: center;
+			padding: .5rem 0;
+		}
+	}
+	&Menu {
+		color: #fff;
+	}
+}
