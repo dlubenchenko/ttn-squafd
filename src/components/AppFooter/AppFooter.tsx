@@ -1,7 +1,11 @@
 import Footer from 'antd/es/layout'
 
+import styles from './AppFooter.module.scss';
+
 export default function AppFooter() {
     return (
-        <Footer style={{ padding: '1rem', textAlign: 'center', background: '#054888ff', color: '#fff' }}>AppFooter</Footer>
+        <Footer className={styles.AppFooter}>
+            TTN SQUAD ©2025 Created by Lubenchenko Dmytro
+        </Footer>
     )
 }

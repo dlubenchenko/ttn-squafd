@@ -1,0 +1,9 @@
+@use '../../../styles/colors';
+
+.dropdown {
+    background: #fff;
+    &:hover {
+        border: 1px solid #000 !important;
+        color: #000 !important;
+    }
+}

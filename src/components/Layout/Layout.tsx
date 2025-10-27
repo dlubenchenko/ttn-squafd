@@ -15,14 +15,20 @@ export default function Layout() {
   }
 
   return (
-    <AntLayout>
+    <AntLayout className={styles.mainAntLayout}>
       <AppSider />
-      <AntLayout>
-        <AppHeader />
-        <AppContent>
-          <Outlet />
-        </AppContent>
-        <AppFooter />
+      <AntLayout className={styles.AntLayout}>
+        <div className={styles.headerFooterFlex}>
+          <AppHeader />
+        </div>
+        <div className={styles.Content}>
+          <AppContent>
+            <Outlet />
+          </AppContent>
+        </div>
+        <div className={styles.headerFooterFlex}>
+          <AppFooter />
+        </div>
       </AntLayout>
     </AntLayout>
   )

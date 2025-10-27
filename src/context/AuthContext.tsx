@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }: ContextProviderProps) => {
                         uid: firebaseUser.uid,
                         email: firebaseUser.email,
                         displayName: sheetUserInfo?.displayName || null,
+                        department: sheetUserInfo?.department,
                         role: sheetUserInfo?.role || 'guest',
                         division: sheetUserInfo?.division,
                     }
@@ -61,6 +62,7 @@ export const AuthProvider = ({ children }: ContextProviderProps) => {
                 uid: userCredential.user.uid,
                 email: userCredential.user.email,
                 displayName: sheetUserInfo?.displayName || null,
+                department: sheetUserInfo?.department,
                 role: sheetUserInfo?.role || 'guest',
                 division: sheetUserInfo?.division,
             }

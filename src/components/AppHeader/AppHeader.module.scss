@@ -1,0 +1,37 @@
+.appHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem 0.5rem;
+	// color: #fff;
+	// background-color: #001529;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+    z-index: 10;
+}
+
+.clock {
+	padding: 0.5rem;
+	color: #000 !important;
+	cursor: default !important;
+	&:nth-child(4) {
+		font-weight: bold;
+		color: inherit !important;
+	}
+}
+
+.division {
+	padding: 0.5rem;
+	cursor: default !important;
+	&:nth-child(4) {
+		font-weight: bold;
+	}
+}
+
+.headerGroup {
+	padding: 0;
+}
+
+.pageTitle {
+	font-size: 1.2rem;
+	font-weight: bold;
+}

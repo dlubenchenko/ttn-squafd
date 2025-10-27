@@ -1,11 +1,14 @@
 import Content from 'antd/es/layout'
 
+import styles from './AppContent.module.scss';
+import { Card } from 'antd';
+
 export default function AppContent({ children }: { children?: React.ReactNode }) {
     return (
-        <Content
-            style={{ padding: '1rem', textAlign: 'center', background: '#76a9daff', color: '#fff' }}
-        >
-            {children}
+        <Content className={styles.appContent}>
+            <Card style={{height: '100%'}}>
+                {children}
+            </Card>
         </Content>
     )
 }

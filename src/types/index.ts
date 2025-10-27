@@ -4,3 +4,5 @@ export * from './auth';
 export * from './context';
 export * from './lang';
 export * from './message';
+export * from './clock';
+export * from './colors';

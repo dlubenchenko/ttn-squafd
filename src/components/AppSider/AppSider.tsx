@@ -14,7 +14,6 @@ export default function AppSider() {
 
   const [collapsed, setCollapsed] = useState(false);
 
-
   const treeMenu = useMemo(() => buildMenuTree(menu || []), [menu]);
   const menuItems = useMemo(() => mapMenuToAntdItems(treeMenu), [treeMenu]);
 
@@ -33,6 +32,7 @@ export default function AppSider() {
       collapsed={collapsed}
       onCollapse={() => setCollapsed(!collapsed)}
       collapsible
+      width={250}
     >
       <div>
         <h2 className={collapsed ?

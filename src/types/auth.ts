@@ -12,7 +12,7 @@ export type AuthContextType = {
     loadMenu: (props: LoadMenuProps) => Promise<void>;
 }
 
-export interface FirebaseUser extends Pick<User, 'displayName' | 'role' | 'division'> {
+export interface FirebaseUser extends Pick<User, 'displayName' | 'role' | 'division' | 'department'> {
     uid: string;
     email: string | null;
 }
