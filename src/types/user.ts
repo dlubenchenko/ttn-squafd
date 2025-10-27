@@ -1,6 +1,6 @@
 export type UserRoles = 'admin' | 'teamlead' | 'agent' | 'guest';
 
-export type UserDivision = 'ticketing' | 'r&r' | 'involuntary' | 'all';
+export type UserDivision = 'ticketing' | 'r&r' | 'involuntary' | 'analytics' | 'all';
 export interface User {
     email: string;
     displayName?: string | null;

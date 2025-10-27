@@ -2,14 +2,17 @@
 
 .appSider {
 	color: #fff;
+	height: 100vh;
 	&Header {
 		font-size: 1rem;
 		text-align: center;
-		padding: .5rem 0;
+		padding: 0.5rem 0;
+		transition: font-size 0.3s;
 		&Collapsed {
-			font-size: 0.7rem;
+			font-size: 0.8rem;
+			transition: font-size 0.3s;
 			text-align: center;
-			padding: .5rem 0;
+			padding: 0.5rem 0.3rem;
 		}
 	}
 	&Menu {

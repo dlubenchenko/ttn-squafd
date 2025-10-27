@@ -31,10 +31,11 @@ export const AuthProvider = ({ children }: ContextProviderProps) => {
                         division: sheetUserInfo?.division,
                     }
                     setUser(userMenu);
-                    if (userMenu.role && userMenu.division) {
+
+                    if (sheetUserInfo?.role && sheetUserInfo?.division) {
                         await loadMenu({
-                            role: userMenu.role,
-                            division: userMenu.division,
+                            role: sheetUserInfo?.role,
+                            division: sheetUserInfo?.division,
                             setMenu,
                             setMenuLoading,
                         });
@@ -64,15 +65,16 @@ export const AuthProvider = ({ children }: ContextProviderProps) => {
                 division: sheetUserInfo?.division,
             }
             setUser(userMenu);
-            if (userMenu.role && userMenu.division) {
+            if (sheetUserInfo?.role && sheetUserInfo?.division) {
                 await loadMenu({
-                    role: userMenu.role,
-                    division: userMenu.division,
+                    role: sheetUserInfo?.role,
+                    division: sheetUserInfo?.division,
                     setMenu,
                     setMenuLoading,
                 });
             }
         } catch (error: unknown) {
+            setAuthLoading(false)
             throw error;
         }
     }

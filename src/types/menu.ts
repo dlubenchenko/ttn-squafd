@@ -1,12 +1,12 @@
-import { type User, type UserRoles } from './user';
-import { type UserDivision } from './user';
+import { type UserRoles, type UserDivision } from './user';
 export interface MenuContextValueType {
   key: string;
-  title: string;
+  label: string;
   path: string;
   roles?: UserRoles[];
-  visible?: boolean | string;
-  children?: string;
+  available?: boolean | string;
+  childrenOf?: string | null;
+  children?: MenuContextValueType[] | null;
   icon?: string;
   division?: UserDivision[];
 }
@@ -21,11 +21,12 @@ export type MenuContextType = {
 
 export interface RawMenuValue {
   key: string;
-  title: string;
+  label: string;
   path: string;
   roles?: string;
-  visible?: boolean | string;
-  children?: string;
+  available?: boolean | string;
+  childrenOf?: string;
+  children?: RawMenuValue[] | null;
   icon?: string;
   division?: UserDivision;
 }

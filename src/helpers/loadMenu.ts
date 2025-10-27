@@ -9,6 +9,7 @@ export const loadMenu = async ({ role, division, setMenuLoading, setMenu }: Load
         if (Array.isArray(data)) {
             const parsedMenu = parseMenu(data);
             const filteredMenu = filterMenuByRole(parsedMenu, role, division);
+            
             setMenu(filteredMenu);
         } else {
             setMenu([]);
