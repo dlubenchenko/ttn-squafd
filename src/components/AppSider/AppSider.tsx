@@ -6,11 +6,23 @@ import { Menu } from 'antd'
 
 import appStyles from './AppSider.module.scss'
 import { buildMenuTree, mapMenuToAntdItems } from '../../utils';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function AppSider() {
   const { menu, user } = useAuthContext();
   const navigate = useNavigate()
+  const location = useLocation();
+
+
+  const flatMenu = menu || [];
+  const activeMenuItem = flatMenu.find(item => {
+    if (item.path && item.path.includes('/:')) {
+      const base = item.path.split('/:')[0];
+      return location.pathname.startsWith(base);
+    }
+    return item.path === location.pathname;
+  });
+  const selectedKeys = activeMenuItem ? [activeMenuItem.key] : [];
 
   const [collapsed, setCollapsed] = useState(false);
 
@@ -45,6 +57,7 @@ export default function AppSider() {
           theme='dark'
           mode='inline'
           items={menuItems}
+          selectedKeys={selectedKeys}
           onClick={handleMenuClick}
         />
       </div>

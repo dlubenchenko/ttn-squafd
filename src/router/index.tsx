@@ -1,14 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Login, Main, SidebarEdit, UserEdit } from "../pages";
+import { Login, Main, Parser, SidebarEdit, Statistic, UserEdit } from "../pages";
 import ProtectedRoute from "./ProtectedRoute";
 import { Layout, NotFound } from "../components";
+import AccessGuard from "./AccessGuard";
 
 const privateRoutes = [
   { path: "/", element: <Main /> },
   { path: "/sidebar-edit", element: <SidebarEdit /> },
   { path: "/users-edit", element: <UserEdit /> },
+  { path: "/parser/:parserId", element: <Parser /> },
+  { path: "/statistic", element: <Statistic /> },
   { path: "/*", element: <NotFound /> },
-  // { path: "/main", element: <Layout /> },
 ];
 
 export default function AppRouter() {
@@ -19,11 +21,15 @@ export default function AppRouter() {
         <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
           {privateRoutes.map(({ path, element }) => (
             <Route
+              key={path}
               path={path}
-              element={element}
+              element={
+                <AccessGuard>
+                  {element}
+                </AccessGuard>
+              }
             />
           ))}
-          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

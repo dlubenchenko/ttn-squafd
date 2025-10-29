@@ -5,14 +5,15 @@
 	padding: 1rem 0.5rem;
 	// color: #fff;
 	// background-color: #001529;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
-    z-index: 10;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+	z-index: 10;
 }
 
 .clock {
 	padding: 0.5rem;
 	color: #000 !important;
 	cursor: default !important;
+	background-color: #fff !important;
 	&:nth-child(4) {
 		font-weight: bold;
 		color: inherit !important;
@@ -22,6 +23,7 @@
 .division {
 	padding: 0.5rem;
 	cursor: default !important;
+	background-color: #fff !important;
 	&:nth-child(4) {
 		font-weight: bold;
 	}
