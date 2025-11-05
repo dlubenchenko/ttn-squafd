@@ -1,10 +1,10 @@
 import { Dropdown as AntDropdown, Button } from "antd";
 import { UserOutlined, LogoutOutlined, EditOutlined } from '@ant-design/icons';
-import type { FirebaseUser } from "../../../types";
 
 import styles from './Dropdown.module.scss';
+import { type User } from "../../../types";
 
-export default function Dropdown({ user, logout }: { user: FirebaseUser, logout: () => void }) {
+export default function Dropdown({ user, logout }: { user: User, logout: () => void }) {
     const profileMenu = {
         items: [
             {
