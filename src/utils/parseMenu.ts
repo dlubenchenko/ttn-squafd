@@ -5,15 +5,19 @@ export function parseMenu(data: RawMenuValue[]): MenuContextValueType[] {
         key: item.key,
         label: item.label,
         path: item.path,
-        roles: item.roles
-            ? (item.roles.split(',').map(role => role.trim()) as UserRoles[])
-            : [],
+        roles: Array.isArray(item.roles)
+            ? item.roles
+            : typeof item.roles === 'string'
+                ? (item.roles.split(',').map(role => role.trim()) as UserRoles[])
+                : [],
         available: item.available === true || item.available === 'true',
         icon: item.icon,
-        division: item.division?.length
-            ? (item.division.split(',').map((division: string) => division.trim()) as UserDivision[])
-            : [],
-        childrenOf: item.childrenOf || null,
+        division: Array.isArray(item.division)
+            ? item.division
+            : typeof item.division === 'string'
+                ? (item.division.split(',').map(d => d.trim()) as UserDivision[])
+                : [],
+        childrenOf: typeof item.childrenOf === 'string' ? item.childrenOf : undefined,
         children: null
     }));
 }

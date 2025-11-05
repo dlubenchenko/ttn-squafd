@@ -7,7 +7,7 @@ import { useAiParser } from "../../utils/parser/aiParser";
 import { useParser } from "../../utils/parser/useParser";
 import { AI_MODELS, DATE_FORMAT } from "../../constants";
 import { useAuthContext } from "../../context";
-import { sendParserStat } from "../../api/sendParserStat";
+import { addSheetData } from "../../api/addSheetData";
 
 // key => приклад
 const EXAMPLES: Record<string, string> = {
@@ -40,23 +40,23 @@ export default function Parser() {
     if (!input.trim()) return;
     setResult("");
     const parsed = await parse(input);
-    await sendParserStat({
+    await addSheetData({
       key: menuKey,
       user: user?.email,
       input: input,
       output: result,
       time: new Date().toLocaleDateString('en-GB', DATE_FORMAT),
       error: null,
-    }, 'parser');
+    }, 'parserStat');
     if (parsed) {
-      sendParserStat({
+      addSheetData({
         key: menuKey,
         user: user?.email,
         input: input,
         output: parsed.trim(),
         time: new Date().toLocaleDateString('en-GB', DATE_FORMAT),
         error: null,
-      }, 'parser');
+      }, 'parserStat');
       setResult(parsed.trim());
       message.success("Парсинг виконано!");
     } else if (error) {

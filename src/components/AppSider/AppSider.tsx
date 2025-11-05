@@ -1,41 +1,28 @@
 import { useState, useMemo } from 'react';
-
 import Sider from 'antd/es/layout/Sider'
 import { useAuthContext } from '../../context'
 import { Menu } from 'antd'
-
 import appStyles from './AppSider.module.scss'
 import { buildMenuTree, mapMenuToAntdItems } from '../../utils';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { getActiveMenuItem, handleMenuClick, sortMenu } from '../../helpers/menuHandler';
 
 export default function AppSider() {
   const { menu, user } = useAuthContext();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
-
-
-  const flatMenu = menu || [];
-  const activeMenuItem = flatMenu.find(item => {
-    if (item.path && item.path.includes('/:')) {
-      const base = item.path.split('/:')[0];
-      return location.pathname.startsWith(base);
-    }
-    return item.path === location.pathname;
-  });
-  const selectedKeys = activeMenuItem ? [activeMenuItem.key] : [];
-
   const [collapsed, setCollapsed] = useState(false);
 
-  const treeMenu = useMemo(() => buildMenuTree(menu || []), [menu]);
+  const sortedMenu = useMemo(() => sortMenu(menu || [], 'main'), [menu]);
+  const treeMenu = useMemo(() => buildMenuTree(sortedMenu || []), [menu]);
   const menuItems = useMemo(() => mapMenuToAntdItems(treeMenu), [treeMenu]);
+  const flatMenu = sortedMenu || [];
 
-  function handleMenuClick({ key }: { key: string }) {
-    // Знаходимо пункт меню по key
-    const flatMenu = menu || [];
-    const item = flatMenu.find(i => i.key === key);
-    if (item && item.path) {
-      navigate(item.path);
-    }
+  const activeMenuItem = getActiveMenuItem(flatMenu, location.pathname);
+  const selectedKeys = activeMenuItem ? [activeMenuItem.key] : [];
+
+  function onMenuClick({ key }: { key: string }) {
+    handleMenuClick(flatMenu, key, navigate);
   }
 
   return (
@@ -58,7 +45,7 @@ export default function AppSider() {
           mode='inline'
           items={menuItems}
           selectedKeys={selectedKeys}
-          onClick={handleMenuClick}
+          onClick={onMenuClick}
         />
       </div>
     </Sider>

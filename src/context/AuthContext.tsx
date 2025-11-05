@@ -1,18 +1,19 @@
 import { createContext, useContext, useEffect, useState } from "react"
 
-import type { FirebaseUser, ContextProviderProps, AuthContextType, MenuContextValueType } from "../types";
+import type { User, ContextProviderProps, AuthContextType, MenuContextValueType } from "../types";
 
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
-import { fetchUserByEmail } from "../api/userApi";
 
-import { loadMenu } from "../helpers";
+import { loadMenu, userMenu } from "../helpers";
+import { getUserByEmail } from "../utils";
+import { addSheetData } from "../api";
 
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider = ({ children }: ContextProviderProps) => {
 
-    const [user, setUser] = useState<FirebaseUser | null>(null);
+    const [user, setUser] = useState<User | null>(null);
     const [authLoading, setAuthLoading] = useState(true);
 
     const [menu, setMenu] = useState<MenuContextValueType[] | null>(null);
@@ -22,16 +23,12 @@ export const AuthProvider = ({ children }: ContextProviderProps) => {
         const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
             const handleUser = async () => {
                 if (firebaseUser) {
-                    const sheetUserInfo = await fetchUserByEmail(firebaseUser.email);
-                    const userMenu = {
+                    const user = {
                         uid: firebaseUser.uid,
                         email: firebaseUser.email,
-                        displayName: sheetUserInfo?.displayName || null,
-                        department: sheetUserInfo?.department,
-                        role: sheetUserInfo?.role || 'guest',
-                        division: sheetUserInfo?.division,
                     }
-                    setUser(userMenu);
+                    const sheetUserInfo = await getUserByEmail(firebaseUser.email);
+                    sheetUserInfo && setUser(userMenu(user, sheetUserInfo));
 
                     if (sheetUserInfo?.role && sheetUserInfo?.division) {
                         await loadMenu({
@@ -57,16 +54,26 @@ export const AuthProvider = ({ children }: ContextProviderProps) => {
         setAuthLoading(true)
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const sheetUserInfo = await fetchUserByEmail(email);
-            const userMenu = {
+            const user = {
                 uid: userCredential.user.uid,
                 email: userCredential.user.email,
-                displayName: sheetUserInfo?.displayName || null,
-                department: sheetUserInfo?.department,
-                role: sheetUserInfo?.role || 'guest',
-                division: sheetUserInfo?.division,
             }
-            setUser(userMenu);
+            let sheetUserInfo = await getUserByEmail(email);
+
+            if (!sheetUserInfo) {
+            const displayName = email.split('@')[0];
+            await addSheetData({
+                email,
+                displayName,
+                role: 'guest',
+                department: 'none',
+                division: 'none',
+                nameUkr: 'Гість'
+            }, 'users');
+            // Після додавання — ще раз отримуємо
+            sheetUserInfo = await getUserByEmail(email);
+        }
+            sheetUserInfo && setUser(userMenu(user, sheetUserInfo));
             if (sheetUserInfo?.role && sheetUserInfo?.division) {
                 await loadMenu({
                     role: sheetUserInfo?.role,

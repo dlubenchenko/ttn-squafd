@@ -7,4 +7,5 @@ export interface User {
     role: UserRoles;
     department?: string;
     division?: UserDivision | null;
+    nameUkr?: string | null;
 }

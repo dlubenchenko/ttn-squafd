@@ -7,3 +7,5 @@ export * from './message';
 export * from './clock';
 export * from './colors';
 export * from './parser';
+export * from './config';
+export * from './statistic';

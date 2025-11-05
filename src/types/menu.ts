@@ -3,12 +3,12 @@ export interface MenuContextValueType {
   key: string;
   label: string;
   path: string;
-  roles?: UserRoles[];
+  roles?: UserRoles[] | string;
   available?: boolean | string;
   childrenOf?: string | null;
   children?: MenuContextValueType[] | null;
   icon?: string;
-  division?: UserDivision[];
+  division?: UserDivision[] | string;
 }
 
 export type MenuContextType = {
@@ -23,12 +23,12 @@ export interface RawMenuValue {
   key: string;
   label: string;
   path: string;
-  roles?: string;
+  roles?: UserRoles[] | string;
   available?: boolean | string;
-  childrenOf?: string;
+  childrenOf?: string | null;
   children?: RawMenuValue[] | null;
   icon?: string;
-  division?: UserDivision;
+  division?: UserDivision[] | string;
 }
 
 export interface LoadMenuProps {

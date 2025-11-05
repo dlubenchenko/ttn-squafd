@@ -1,4 +1,4 @@
-export async function sendParserStat(data: Record<string, any>, sheet: string): Promise<boolean> {
+export async function addSheetData(data: Record<string, any>, sheet: string): Promise<boolean> {
     const scriptURL = `${import.meta.env.VITE_GOOGLE_SHEETS_ADD}${sheet}`;
     
     try {

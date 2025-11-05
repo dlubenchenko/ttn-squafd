@@ -1,14 +1,14 @@
 import type { LoadMenuProps } from "../types";
-import { fetchSheetData } from "../api/googleSheets";
 import { filterMenuByRole, parseMenu } from "../utils";
+import { fetchSidebarMenu } from "../utils/sidebarMenuApi";
 
 export const loadMenu = async ({ role, division, setMenuLoading, setMenu }: LoadMenuProps) => {
     setMenuLoading(true);
     try {
-        const data = await fetchSheetData('sidebar');
+        const data = await fetchSidebarMenu();
         if (Array.isArray(data)) {
             const parsedMenu = parseMenu(data);
-            const filteredMenu = filterMenuByRole(parsedMenu, role, division);
+            const filteredMenu = filterMenuByRole(parsedMenu, role, division);         
             
             setMenu(filteredMenu);
         } else {

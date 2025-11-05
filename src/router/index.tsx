@@ -3,13 +3,16 @@ import { Login, Main, Parser, SidebarEdit, Statistic, UserEdit } from "../pages"
 import ProtectedRoute from "./ProtectedRoute";
 import { Layout, NotFound } from "../components";
 import AccessGuard from "./AccessGuard";
+import Schedule from "../pages/Schedule/Schedule";
 
 const privateRoutes = [
   { path: "/", element: <Main /> },
   { path: "/sidebar-edit", element: <SidebarEdit /> },
-  { path: "/users-edit", element: <UserEdit /> },
+  { path: "/admin/users-edit", element: <UserEdit /> },
   { path: "/parser/:parserId", element: <Parser /> },
-  { path: "/statistic", element: <Statistic /> },
+  { path: "/admin/statistic", element: <Statistic /> },
+  { path: "/admin/sidebar-edit", element: <SidebarEdit /> },
+  { path: "/schedule", element: <Schedule /> },
   { path: "/*", element: <NotFound /> },
 ];
 
