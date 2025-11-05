@@ -4,7 +4,7 @@ import { Table, Select, Space } from "antd";
 import styles from "./Schedule.module.scss";
 
 import { cols as AntDCols, rows as AntDRows } from "../../helpers";
-import { getSheetData, getMonthDays } from "../../utils";
+import { getSheetData, getMonthDays, parseSheetName } from "../../utils";
 import { getDataFromFirestore, fetchSheetData } from "../../api";
 import { fetchSheetsList } from "../../api/fetchSheetsList";
 
@@ -46,15 +46,15 @@ export default function Schedule() {
 
       const users = await fetchSheetData("users", config.GOOGLE_SHEETS_API_KEY);
       const agents = users
-        .filter((row: any) => row.division === "invol" && row.role !== "teamlead")
+        // .filter((row: any) => row.division === "invol" && row.role !== "teamlead")
         .map((row: any) => row.nameUkr);
 
       // console.log(selectedSheet);
 
 
       // Витягуємо місяць/рік з selectedSheet
-      const now = new Date();
-      const { days, weekdays } = getMonthDays(now.getFullYear(), now.getMonth());
+      const { month, year } = parseSheetName(selectedSheet);
+      const { days, weekdays } = getMonthDays(year, month);
       const scheduleData = await getSheetData(selectedSheet, config.GOOGLE_SHEETS_ALL_SCHEDULE);
 
       if (!Array.isArray(scheduleData)) {
@@ -62,8 +62,17 @@ export default function Schedule() {
         return;
       }
 
+      const agentsWithSchedule = agents.filter((name: string) => {
+        const scheduleRow = scheduleData.find(
+          (row: any) => (typeof row.values[0] === "string" ? row.values[0].trim() : "") === name.trim()
+        );
+        if (!scheduleRow) return false;
+        // Перевіряємо, чи є хоч одна непорожня зміна (крім імені)
+        return scheduleRow.values.slice(1).some((v: any) => v && v !== "");
+      });
+
       setColumns(AntDCols(days, weekdays, styles));
-      setDataSource(AntDRows(agents, scheduleData, days));
+      setDataSource(AntDRows(agentsWithSchedule, scheduleData, days));
       setLoading(false);
     }
 
