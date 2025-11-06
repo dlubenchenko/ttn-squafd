@@ -1,0 +1,17 @@
+{
+	"login": {
+		"title": "Login",
+		"subtitle": "Sign in to your account",
+		"emailPlaceholder": "Email",
+		"passwordPlaceholder": "Password",
+		"button": "Sign In",
+		"error": "Invalid email or password",
+		"passwordMessage": "Please enter your password!",
+		"emailMessage": "Please enter your email!",
+		"greet": "Greeting, ",
+		"authError": {
+			"Firebase: Error (auth/invalid-credential).": "Login error. Please check your credentials or try logging in again.",
+			"Firebase: Error (auth/invalid-email).": "Login error. Please check your email or try logging in again."
+		}
+	}
+}

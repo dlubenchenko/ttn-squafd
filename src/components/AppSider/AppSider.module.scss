@@ -1,0 +1,23 @@
+@use '../../styles/colors';
+
+.appSider {
+	// font-family: default;
+	color: #fff;
+	width: 100%;
+	&Header {
+		text-align: center;
+		padding: 1rem 0;
+		transition: font-size 0.3s;
+		margin-bottom: 0;
+		&Collapsed {
+			font-size: 0.8rem;
+			transition: font-size 0.3s;
+			text-align: center;
+			padding: 1rem 0.3rem;
+			margin-bottom: 0;
+		}
+	}
+	&Menu {
+		color: #fff;
+	}
+}

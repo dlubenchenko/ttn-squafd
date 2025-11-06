@@ -1,0 +1,25 @@
+@use '../../styles/_colors';
+
+.mainAntLayout {
+	min-height: 100vh;
+	flex-direction: row;
+}
+
+.AntLayout {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	flex: 1;
+}
+
+.Content {
+	flex: 1;
+	height: 100%;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.headerFooterFlex {
+	flex: none;
+}

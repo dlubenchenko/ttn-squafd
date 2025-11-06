@@ -1,0 +1,12 @@
+@use '../../styles/colors';
+
+.AppFooter {
+	padding: 1rem .5rem;
+	text-align: center;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	background: #f0f0f0;
+	z-index: 1;
+	border-top: 1px solid #d9d9d9;
+}

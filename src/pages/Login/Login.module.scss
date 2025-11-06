@@ -1,0 +1,47 @@
+@use '../../styles/colors';
+
+.loginContainer {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: colors.$gradient;
+}
+
+.loginForm {
+	min-width: 320px;
+	max-width: 400px;
+	padding: 24px 32px 12px 32px;
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+	display: flex;
+	flex-direction: column;
+}
+
+.loginTitle {
+	text-align: center;
+	font-weight: 600;
+	font-size: 1.5rem;
+	color: #222;
+	letter-spacing: 1px;
+}
+
+.loginSubtitle {
+	text-align: center;
+	font-size: 0.8rem;
+	color: #555;
+}
+
+.loginButton {
+  background-color: colors.$primary;
+  margin-top: 12px;
+}
+
+:global(.ant-btn-primary) {
+  background-color: colors.$primary !important;
+
+  &:hover {
+    background-color: colors.$secondary !important;
+  }
+}
