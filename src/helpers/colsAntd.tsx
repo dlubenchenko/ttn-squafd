@@ -1,6 +1,12 @@
 export function cols(days: Array<number>, weekdays: Array<string>, styles: CSSModuleClasses): Array<any> {
   return [
-    { title: "Агент", dataIndex: "name", key: "name", fixed: "left", width: 150 },
+    {
+      title: "Агент", dataIndex: "name", key: "name", fixed: "left", width: 150, onCell: () => ({
+        style: {
+          fontWeight: "bold"
+        },
+      })
+    },
     ...days.map((day, idx) => ({
       title: (
         <div>
@@ -19,7 +25,7 @@ export function cols(days: Array<number>, weekdays: Array<string>, styles: CSSMo
           minHeight: 24,
           padding: 0,
           cursor: "default",
-          fontWeight: "bold",
+          // fontWeight: "bold",
         },
       }),
     })),
