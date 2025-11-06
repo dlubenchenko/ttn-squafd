@@ -1,4 +1,4 @@
-import type { User } from "../types";
+import type { User } from "../../types";
 
 export function rows(agents: string[], scheduleData: any[], days: number[], user: User | null): any[] {
   const agentRows = agents.map((name) => {

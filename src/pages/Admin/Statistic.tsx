@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { getSheetData } from "../../utils"
 import { getDataFromFirestore } from "../../api"
 import type { ConfigType, StatisticType } from "../../types"
+import { statisticCols } from "../../helpers";
+import { Table } from "antd";
 
 export default function Statistic() {
   const [data, setData] = useState<ConfigType | null>(null);
@@ -14,17 +16,28 @@ export default function Statistic() {
 
   useEffect(() => {
     if (!data?.GOOGLE_SHEETS_API_KEY) return;
-    getSheetData('parserStat', data?.GOOGLE_SHEETS_API_KEY).then(sheet => setData1(sheet))
+    getSheetData('parserStat', data?.GOOGLE_SHEETS_API_KEY).then(sheet => {
+      // console.log(sheet);
+      setData1(sheet)
+    })
   }, [data])
 
   return (
     <>
       <h2>Statistic Page</h2>
-      {data1 && data1.map(item => (
+      {data1 && <Table
+        columns={statisticCols()}
+        dataSource={data1.map((item, idx) => ({
+          ...item,
+          key: `${item.key}-${item.time}-${idx}` // унікальний ключ
+        }))}
+        pagination={false}
+      />}
+      {/* {data1 && data1.map(item => (
         <>
-          <p key={item.time}>{item.key} - {item.output} - {item.time} - {item.user}</p>
+          <p key={item.time + item.key}>{item.key} - {item.output} - {item.time} - {item.user}</p>
         </>
-      ))}
+      ))} */}
     </>
   )
 }

@@ -1,4 +1,5 @@
 import { useFirebaseIdToken } from "../hooks";
+import { fetchWithRetry } from "../utils/fetchWithRetry";
 
 export async function fetchSheetsList(link: string): Promise<{ name: string, month: string, year: string }[]> {
     const token = await useFirebaseIdToken();
@@ -6,7 +7,7 @@ export async function fetchSheetsList(link: string): Promise<{ name: string, mon
 
     // console.log(url);
     
-    const res = await fetch(url);
+    const res = await fetchWithRetry(url, undefined, 2, 1000);
     const data = await res.json();
 
     // console.log(data);

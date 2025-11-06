@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
+import { Table } from "antd";
+
 import { getDataFromFirestore } from "../../api"
 import type { RawMenuValue } from "../../types";
+import { sidebarCols } from "../../helpers";
+
+
 
 export default function SidebarEdit() {
   const [menuData, setMenuData] = useState<RawMenuValue[] | null>(null);
@@ -16,9 +21,14 @@ export default function SidebarEdit() {
   return (
     <>
       <h2>Sidebar Edit Page</h2>
-      {menuData && menuData.map(menuItem => {
+      <Table
+        columns={sidebarCols()}
+        dataSource={menuData || []}
+        pagination={false}
+      />
+      {/* {menuData && menuData.map(menuItem => {
         return <p key={menuItem.key}>{menuItem.label}</p>;
-      })}
+      })} */}
     </>
   )
 }
