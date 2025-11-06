@@ -42,7 +42,7 @@ export default function Parser() {
     const parsed = await parse(input);
     await addSheetData({
       key: menuKey,
-      user: user?.email,
+      user: user?.nameUkr || user?.email,
       input: input,
       output: result,
       time: new Date().toLocaleDateString('en-GB', DATE_FORMAT),
@@ -51,7 +51,7 @@ export default function Parser() {
     if (parsed) {
       addSheetData({
         key: menuKey,
-        user: user?.email,
+        user: user?.nameUkr || user?.email,
         input: input,
         output: parsed.trim(),
         time: new Date().toLocaleDateString('en-GB', DATE_FORMAT),

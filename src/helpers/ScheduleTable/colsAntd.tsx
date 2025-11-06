@@ -1,7 +1,12 @@
 export function cols(days: Array<number>, weekdays: Array<string>, styles: CSSModuleClasses): Array<any> {
   return [
     {
-      title: "Агент", dataIndex: "name", key: "name", fixed: "left", width: 150, onCell: () => ({
+      title: "Агент",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      width: 150,
+      onCell: () => ({
         style: {
           fontWeight: "bold"
         },
